@@ -1,0 +1,10 @@
+PODS:
+  - VK-ios-sdk (1.0.6.3)
+
+DEPENDENCIES:
+  - VK-ios-sdk
+
+SPEC CHECKSUMS:
+  VK-ios-sdk: 34a4fecde9e8f72b628edf600922804600164c2b
+
+COCOAPODS: 0.29.0
