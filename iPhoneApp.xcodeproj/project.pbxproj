@@ -231,8 +231,8 @@
 		ACF7B44418D6797800B464DB /* IntermediateControllerOfMainGraph */ = {
 			isa = PBXGroup;
 			children = (
-				ACF7B44118D6795100B464DB /* SGGIntermediateGraphController.h */,
 				ACF7B44218D6795100B464DB /* SGGIntermediateGraphController.mm */,
+				ACF7B44118D6795100B464DB /* SGGIntermediateGraphController.h */,
 			);
 			name = IntermediateControllerOfMainGraph;
 			sourceTree = "<group>";

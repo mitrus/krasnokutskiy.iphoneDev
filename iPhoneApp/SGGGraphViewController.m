@@ -66,9 +66,11 @@ female = {245/256.0, 12/256.0, 139/256.0};
     NSLog(@"%f width", self.view.bounds.size.height);
     GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(xTL, xBR, yBR, yTL, -1024, 1024);
     self.effect.transform.projectionMatrix = projectionMatrix;
+    self.graph = [[SGGGraph alloc] initWithGlobalEffect:self.effect];
     
     //MAKE GRAPH
-    self.graph = [[SGGGraph alloc] initWithGlobalEffect:self.effect];
+    /*
+    
     [self.graph addNode:[[SGGNode alloc] initWithEffect:self.effect sideSize:6.0 * 2 andColor:male andPosition:GLKVector2Make(160, aspect * 160)]];
     
     for (int i = 1; i < 10; i++) {
@@ -76,9 +78,8 @@ female = {245/256.0, 12/256.0, 139/256.0};
         [self.graph addEdge:0 to:i];
     }
     for (int i = 1; i < 30; i++)
-        //        for (int j = 0; j < )
         [self.graph addEdge:rand() % 10 to:rand() % 10];
-    
+    */
     //INIT GRAPH
     [self.graph setCurrentMousePosition:CGPointMake(-1, -1)];
     [self.graph setSelectedCell:-1];

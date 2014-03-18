@@ -32,12 +32,14 @@ static NSArray *SCOPE = nil;
     if ([VKSdk wakeUpSession])
     {
         [self startWorking];
+    } else {
+        
     }
 }
 
 - (void)startWorking {
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
-    SGGMainGraphController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"SGGGraphViewController"];
+    SGGMainGraphController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"SGGMainGraphController"];
     mainViewController.countOfFingers.text = [[VKSdk getAccessToken] accessToken];
     UIWindow *frontWindow = [[[UIApplication sharedApplication] windows]
                              lastObject];
@@ -49,7 +51,6 @@ static NSArray *SCOPE = nil;
 	[super viewDidLoad];
     
 	[VKSdk initializeWithDelegate:self andAppId:@"4193213"];
-    
     
 }
 

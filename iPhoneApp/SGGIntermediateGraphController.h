@@ -14,7 +14,7 @@
 @property (weak, nonatomic) SGGGraph *graph;
 
 - (void)clearGraph;
-- (void)addNode:(int)identificator;
+- (void)addNode:(int)identificator andSex:(BOOL)isMale;
 - (void)addEdge:(int)id1 and:(int)id2;
 
 @end

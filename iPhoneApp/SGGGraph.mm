@@ -12,15 +12,15 @@
 #include <cmath>
 #include <set>
 
-const float MIN_DISTANCE = 60;
-const float ELASTICITY = 3;
+const float MIN_DISTANCE = 80;
+const float ELASTICITY = 5;
 const float eps = 5;
-const float FRICTION = (1 - 0.3);
+const float FRICTION = (1 - 0.5);
 const float MAX_SPEED = 8.0;
 const float MIN_SPEED = 0.4;
 const float theta = 0.8;
 const float HALF_SIDE = 6.0;
-
+const float GRAVITY = 7000;
 struct Body {
     float x, y;
     float m;
@@ -334,11 +334,6 @@ const GLKVector4 edgeColor = {184/256.0, 184/256.0, 184/256.0, 1.0};
 - (void) update {
     int n = (int) objectList.size();
     std::vector<bool> p(n, false);
-    float DEBUG_DST = [self length:GLKVector2Subtract(objectList[1].position, objectList[2].position)];
-    if ( DEBUG_DST < 20) {
-        NSLog(@"LOL! %f", DEBUG_DST),
-        minDist = DEBUG_DST;
-    }
 //    NSLog(@"%f", [self length:GLKVector2Subtract(objectList[1].position, objectList[2].position)]);
     
     for (int i = 0; i < n; i++) {
@@ -379,7 +374,7 @@ const GLKVector4 edgeColor = {184/256.0, 184/256.0, 184/256.0, 1.0};
     
     for (int i = 1; i < n; i++) {
         Body currentBody(objectList[i].position.x, objectList[i].position.y, 1.0);
-        Force totalForce = quadTree->gravityOnBody(currentBody, 1000.0);
+        Force totalForce = quadTree->gravityOnBody(currentBody, GRAVITY);
         GLKVector2 copyForce = GLKVector2Make(totalForce.vx, totalForce.vy);
         objectList[i].velocity = GLKVector2Add(objectList[i].velocity, copyForce);
     }
