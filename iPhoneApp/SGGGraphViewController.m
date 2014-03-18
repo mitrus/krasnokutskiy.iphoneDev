@@ -58,10 +58,12 @@ female = {245/256.0, 12/256.0, 139/256.0};
     [EAGLContext setCurrentContext:self.context];
     
     float aspect = fabsf(self.view.bounds.size.height / self.view.bounds.size.width);
-    xTL = yTL = 0;
-    xBR = 320.0;
+    xTL = -500;
+    xBR = 500;
+    yTL = -500 * aspect;
+    yBR = 500 * aspect;
     lastDistanceInView = -1;
-    yBR = aspect * 320.0;
+
     NSLog(@"%f width", aspect * 320);
     NSLog(@"%f width", self.view.bounds.size.height);
     GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(xTL, xBR, yBR, yTL, -1024, 1024);

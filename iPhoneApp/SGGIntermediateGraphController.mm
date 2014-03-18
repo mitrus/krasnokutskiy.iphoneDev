@@ -15,6 +15,7 @@
     std::vector< std::set<int> > graphOfIds;
     std::set<int> currentPeople;
     std::map<int, int> nodeById;
+    bool hasSet;
 }
 
 @synthesize graph = _graph;
@@ -23,6 +24,7 @@ const GLKVector4 male = {0.0, 158.0/256, 232.0/256},
     female = {245/256.0, 12/256.0, 139/256.0};
 
 - (void)clearGraph {
+    hasSet = NO;
     graphOfIds.clear();
     currentPeople.clear();
     nodeById.clear();
@@ -30,9 +32,14 @@ const GLKVector4 male = {0.0, 158.0/256, 232.0/256},
 
 - (void)addNode:(int)identificator andSex:(BOOL)isMale {
     if (currentPeople.find(identificator) == currentPeople.end()) {
+
         nodeById[identificator] = (int) currentPeople.size();
         currentPeople.insert(identificator);
-        [self.graph addNode:[[SGGNode alloc] initWithEffect:self.graph.globalEffect sideSize:6.0 * 2 andColor:isMale ? male : female andPosition:GLKVector2Make((float) (rand() % 500), (float) (rand() % 500))]];
+        if (!hasSet) {
+            [self.graph addNode:[[SGGNode alloc] initWithEffect:self.graph.globalEffect sideSize:6.0 * 2 andColor:isMale ? male : female andPosition:GLKVector2Make(0, 0)]];
+            hasSet = YES;
+        } else
+            [self.graph addNode:[[SGGNode alloc] initWithEffect:self.graph.globalEffect sideSize:6.0 * 2 andColor:isMale ? male : female andPosition:GLKVector2Make((float) (rand() % 50000) / 200.0, (float) (rand() % 50000) / 200.0)]];
     }
 }
 

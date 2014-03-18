@@ -224,7 +224,7 @@ const GLKVector4 edgeColor = {184/256.0, 184/256.0, 184/256.0, 1.0};
         countOfEdges = 0;
         currentMaxSpeed = 5.0;
         self.stopped = false;
-        quadTree = new Tree(-1000, -1000, 1000, 1000);
+        quadTree = new Tree(-5000, -5000, 5000, 5000);
         minDist = 1000;
     }
     return self;
