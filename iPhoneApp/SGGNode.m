@@ -30,6 +30,7 @@
 }
 
 - (void)render {
+
     GLKVector2 vertices[] = {
         GLKVector2Make(-len/2, -len/2), // Left  bottom front
         GLKVector2Make( len/2, -len/2), // Right bottom front

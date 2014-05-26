@@ -29,13 +29,13 @@ static NSArray *SCOPE = nil;
 }
 - (IBAction)authorizeVK:(id)sender {
     [VKSdk authorize:SCOPE revokeAccess:YES forceOAuth:YES];
-    if ([VKSdk wakeUpSession])
-    {
+    if ([VKSdk wakeUpSession]) {
         [self startWorking];
     } else {
         
     }
 }
+
 
 - (void)startWorking {
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];

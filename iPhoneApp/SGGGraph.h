@@ -28,5 +28,11 @@
 - (void)update;
 - (int)getId:(CGPoint)point;
 - (void)setupOffset:(CGPoint)point;
+- (int)getNodeById:(int)_id;
+- (int)getIdByNode:(int)_node;
+- (void)clearNBI;
+- (void)setValueToNBI:(int)first with:(int)second;
+- (int)getBy:(int)value;
+- (int)getNode:(int)value;
 
 @end

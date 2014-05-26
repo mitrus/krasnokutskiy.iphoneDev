@@ -58,9 +58,10 @@
     VKRequest *userId = [[VKApi users] get];
     userId.attempts = 0;
     [userId executeWithResultBlock:^(VKResponse * response) {
-        self.countOfFingers.text = @"HMM...";
+        self.countOfFingers.text = @"Everything is OK!";
         NSDictionary *answer = response.json;
         NSNumber *selfId = [[answer valueForKey:@"id"] objectAtIndex:0];
+//        NSNumber *selfId = @141429766;
         [self.graphController addNode:[selfId intValue] andSex:YES];
         
         VKRequest *getAllFriends = [[VKApi friends] get:@{VK_API_FIELDS : @"sex"}];
@@ -85,7 +86,6 @@
                         NSArray *mutual = responseMutual.json;
                         for (int j = 0; j < [mutual count]; j++) {
                             [self.graphController addEdge:[[[[answerFriends valueForKey:@"items"] objectAtIndex:index1] valueForKey:@"id"] intValue] and:[[mutual objectAtIndex:j] intValue]];
-
                         }
                     };
                     getMutual.errorBlock = ^(NSError * error) {
@@ -109,7 +109,7 @@
 //                [[requests objectAtIndex:rand() % [requests count]] repeat];
 //            [requets ex
             reqs = requests;
-            [NSTimer scheduledTimerWithTimeInterval:0.34
+            [NSTimer scheduledTimerWithTimeInterval:0.4
                                              target:self
                                            selector:@selector(proceedRequest:)
                                            userInfo:nil
