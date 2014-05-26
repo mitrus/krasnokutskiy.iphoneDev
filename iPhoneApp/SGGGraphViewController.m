@@ -34,6 +34,8 @@ female = {245/256.0, 12/256.0, 139/256.0};
 @synthesize rotate = _rotate;
 @synthesize graph = _graph;
 @synthesize countOfFingers = _countOfFingers;
+@synthesize personIdText = _personIdText;
+@synthesize personName = _personName;
 
 //@synthesize token = _token;
 
@@ -44,9 +46,9 @@ female = {245/256.0, 12/256.0, 139/256.0};
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     self.effect = [[GLKBaseEffect alloc] init];
+    self.personIdText.delegate = self;
     
     if (!self.context) {
         NSLog(@"Error in ES context");
@@ -112,11 +114,60 @@ female = {245/256.0, 12/256.0, 139/256.0};
     //    if ([[event allTouches] count] == 1) {
     [self.graph setCurrentMousePosition: [self transformFromViewToGl:location]];
     [self.graph setSelectedCell:[self.graph getId:[self transformFromViewToGl:location]]];
+    
+    
+    if ([self.graph selectedCell] != -1) {
+        NSString *url_Img_FULL;
+
+        int personId = [self.graph selectedCell];
+        int lol = [self.graph getNode:personId];
+//        VKRequest *getMutual = [VKRequest requestWithMethod:@"friends.getMutual" andParameters:@{@"target_uid" : [[[answerFriends valueForKey:@"items"]     objectAtIndex:index1] valueForKey:@"id"] } andHttpMethod:@"GET"];
+//        [self.graph ]
+        VKRequest *selectedUserInfo = [VKRequest requestWithMethod:@"users.get" andParameters:@{@"user_ids" : [NSNumber numberWithInt:lol], @"fields" : @"photo_50"} andHttpMethod:@"GET"];
+        [selectedUserInfo executeWithResultBlock:^(VKResponse *response) {
+            NSDictionary *info = response.json;
+            NSLog(@"%@", info);
+            NSArray *urlArray = [info valueForKey:@"photo_50"];
+            NSArray *firstNameArray = [info valueForKey:@"first_name"];
+            NSArray *secondNameArray = [info valueForKey:@"last_name"];
+            NSString *url = [urlArray objectAtIndex:0];
+            NSString *firstName = [firstNameArray objectAtIndex:0];
+            NSString *secondName = [secondNameArray objectAtIndex:0];
+//            [self.personName setFont:[UIFont fontWithName:@"OpenSans-Light" size:14.f]];
+            self.personName.text = [secondName stringByAppendingString:[@" " stringByAppendingString:firstName]];
+//            _personIdText.text = url;
+//            [self.personIdText setText:url];
+         //   UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+//            NSString *lol = [url substringFromIndex:8];
+//            url = [@"http://" stringByAppendingString:[url substringFromIndex:8]];
+//            if ([url hasPrefix:@"https://"]) {
+            
+//            }
+//            NSURL * imageURL = [NSURL URLWithString:url];
+//            NSData * imageData = [NSData dataWithContentsOfURL:imageURL];
+            __block UIImage * img;
+            DLImageLoader *loader = [[DLImageLoader alloc] init];
+            [loader loadImageFromUrl:url completed:^(NSError *error, UIImage *imageTmp) {
+                img = imageTmp;
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
+                imageView.layer.cornerRadius = img.size.width / 2;
+                imageView.layer.masksToBounds = YES;
+                [imageView.layer setPosition:CGPointMake(6 + img.size.width / 2, self.view.window.bounds.size.height - img.size.height / 2 - 6)];
+                [self.view addSubview: imageView];
+            }];
+            
+            NSLog(@"LOL");
+        } errorBlock:^(NSError *error) {
+            NSLog(@"DSDS");
+        }];
+        
+    }
     //    }
     if ([[event allTouches] count] == 1)
         lastMedianInView = location;
     [self.graph setupOffset:[self transformFromViewToGl:location]];
     //    NSLog(@"Began: %f %f", location.x, location.y);
+            
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -199,6 +250,8 @@ female = {245/256.0, 12/256.0, 139/256.0};
                 GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(xTL, xBR, yBR, yTL, -1024, 1024);
                 self.effect.transform.projectionMatrix = projectionMatrix;
                 lastMedianInView = pts;
+                
+                
             }
         }
     }
@@ -228,12 +281,111 @@ female = {245/256.0, 12/256.0, 139/256.0};
     glClear(GL_COLOR_BUFFER_BIT);
     [self.graph render];
     //    if (![self.graph stopped]) {
-    [self.graph update];
+    for (int i = 0; i < 1; i++)
+        [self.graph update];
+//    [self.graph update];
+//    [self.graph update];
     //    }
     //    }
     //    [self.graph update];
     //    [self.graph update];
 }
 
+#pragma mark - Text Field Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    NSLog(@"OK!:)");
+    [self textFieldShouldReturn:textField];
+}
+
+#pragma mark - Graph Builder By Id
+
+- (void)buildGraphById:(int)_id { /*
+    VKRequest *userId = [VKRequest requestWithMethod:@"users.get" andParameters:@{@"user_ids" : [NSNumber numberWithInteger:[self.personIdText.text integerValue]], @"fields" : @"photo_50"} andHttpMethod:@"GET"];
+    userId.attempts = 0;
+    [userId executeWithResultBlock:^(VKResponse * response) {
+        self.countOfFingers.text = @"Everything is OK!";
+        NSDictionary *answer = response.json;
+        NSNumber *selfId = [[answer valueForKey:@"id"] objectAtIndex:0];
+        //        NSNumber *selfId = @141429766;
+        [self.graphController addNode:[selfId intValue] andSex:YES];
+        
+        VKRequest *getAllFriends = [[VKApi friends] get:@{VK_API_FIELDS : @"sex"}];
+        [getAllFriends executeWithResultBlock:^(VKResponse * responseFriends) {
+            NSDictionary *answerFriends = responseFriends.json;
+            NSArray *list = [answerFriends valueForKey:@"items"];
+            for (int i = 0; i < [list count]; i++) {
+                NSDictionary *currentPerson = [list objectAtIndex:i];
+                int sex = [[currentPerson valueForKey:@"sex"] intValue];
+                int personId = [[currentPerson valueForKey:@"id"] intValue];
+                [self.graphController addNode:personId andSex:sex == 2];
+                [self.graphController addEdge:[selfId intValue] and:personId];
+                //                [self.graphController add]
+            }
+            NSMutableArray *requests = [[NSMutableArray alloc] init];
+            for (int i = 0 ; i < [list count]; i++) {
+                //                [NSThread sleepForTimeInterval:0.3];
+                //                VKRequest *getMutual = [[VK]]
+                ^(int index1) {
+                    VKRequest *getMutual = [VKRequest requestWithMethod:@"friends.getMutual" andParameters:@{@"target_uid" : [[[answerFriends valueForKey:@"items"]     objectAtIndex:index1] valueForKey:@"id"] } andHttpMethod:@"GET"];
+                    getMutual.completeBlock = ^(VKResponse * responseMutual) {
+                        NSArray *mutual = responseMutual.json;
+                        for (int j = 0; j < [mutual count]; j++) {
+                            [self.graphController addEdge:[[[[answerFriends valueForKey:@"items"] objectAtIndex:index1] valueForKey:@"id"] intValue] and:[[mutual objectAtIndex:j] intValue]];
+                        }
+                    };
+                    getMutual.errorBlock = ^(NSError * error) {
+                        if (error.code != VK_API_ERROR) {
+                            [error.vkError.request repeat];
+                        }
+                        else {
+                            NSLog(@"VK error: %@", error);
+                        }
+                    };
+                    
+                    [requests addObject:getMutual];
+                }(i);
+                
+            }*/
+            /*if ([requests count] > 0)
+             [[requests objectAtIndex:0] executeWithResultBlock:[[requests objectAtIndex:0] completeBlock] errorBlock:[[requests objectAtIndex:0] errorBlock]];
+             for (int i = 1; i < [requests count]; i++)
+             [[requests objectAtIndex:i] executeAfter:[requests objectAtIndex:i-1] withResultBlock:[[requests objectAtIndex:i] completeBlock] errorBlock:[[requests objectAtIndex:i] errorBlock]];*/
+            //            for (int i = 0; i < 1000; i++)
+            //                [[requests objectAtIndex:rand() % [requests count]] repeat];
+            //            [requets ex
+    /*
+            reqs = requests;
+            [NSTimer scheduledTimerWithTimeInterval:0.4
+                                             target:self
+                                           selector:@selector(proceedRequest:)
+                                           userInfo:nil
+                                            repeats:YES];
+            
+        } errorBlock:^(NSError * error) {
+            if (error.code != VK_API_ERROR) {
+                [error.vkError.request repeat];
+            }
+            else {
+                NSLog(@"VK error: %@", error);
+            }
+        }];
+        
+    } errorBlock:^(NSError * error) {
+        self.countOfFingers.text = @":((...";
+        if (error.code != VK_API_ERROR) {
+            [error.vkError.request repeat];
+        }
+        else {
+            NSLog(@"VK error: %@", error);
+        }
+    }];
+*/
+}
 
 @end

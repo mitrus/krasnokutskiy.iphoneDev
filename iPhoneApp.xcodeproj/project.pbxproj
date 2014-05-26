@@ -29,6 +29,10 @@
 		AC47C99C18CD2A910000274E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC47C99B18CD2A910000274E /* GLKit.framework */; };
 		AC798CA618D65B96001E9752 /* SGGMainGraphController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC798CA518D65B96001E9752 /* SGGMainGraphController.m */; };
 		ACB19F6D18D00C6000F5AD2A /* SGGNode.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB19F6C18D00C6000F5AD2A /* SGGNode.m */; };
+		ACBD12C01932D88200261131 /* DLILCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBD12B81932D88200261131 /* DLILCacheManager.m */; };
+		ACBD12C11932D88200261131 /* DLILOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBD12BB1932D88200261131 /* DLILOperation.m */; };
+		ACBD12C21932D88200261131 /* DLImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBD12BD1932D88200261131 /* DLImageLoader.m */; };
+		ACBD12C31932D88200261131 /* DLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBD12BF1932D88200261131 /* DLImageView.m */; };
 		ACF7B44318D6795100B464DB /* SGGIntermediateGraphController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACF7B44218D6795100B464DB /* SGGIntermediateGraphController.mm */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +78,25 @@
 		AC881D3E18D6705D0015C6F8 /* libPods-VK-ios-sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-VK-ios-sdk.a"; path = "Pods/build/Debug-iphoneos/libPods-VK-ios-sdk.a"; sourceTree = "<group>"; };
 		ACB19F6B18D00C6000F5AD2A /* SGGNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGGNode.h; sourceTree = "<group>"; };
 		ACB19F6C18D00C6000F5AD2A /* SGGNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGGNode.m; sourceTree = "<group>"; };
+		ACBD12AA1932D69B00261131 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		ACBD12AB1932D69B00261131 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		ACBD12AC1932D69B00261131 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		ACBD12AD1932D69B00261131 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		ACBD12AE1932D69B00261131 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		ACBD12AF1932D69B00261131 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		ACBD12B01932D69B00261131 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		ACBD12B11932D69B00261131 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		ACBD12B21932D69B00261131 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		ACBD12B31932D69B00261131 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		ACBD12B51932D88200261131 /* DLIL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLIL.h; sourceTree = "<group>"; };
+		ACBD12B71932D88200261131 /* DLILCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLILCacheManager.h; sourceTree = "<group>"; };
+		ACBD12B81932D88200261131 /* DLILCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLILCacheManager.m; sourceTree = "<group>"; };
+		ACBD12BA1932D88200261131 /* DLILOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLILOperation.h; sourceTree = "<group>"; };
+		ACBD12BB1932D88200261131 /* DLILOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLILOperation.m; sourceTree = "<group>"; };
+		ACBD12BC1932D88200261131 /* DLImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLImageLoader.h; sourceTree = "<group>"; };
+		ACBD12BD1932D88200261131 /* DLImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLImageLoader.m; sourceTree = "<group>"; };
+		ACBD12BE1932D88200261131 /* DLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLImageView.h; sourceTree = "<group>"; };
+		ACBD12BF1932D88200261131 /* DLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLImageView.m; sourceTree = "<group>"; };
 		ACF7B44118D6795100B464DB /* SGGIntermediateGraphController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGGIntermediateGraphController.h; sourceTree = "<group>"; };
 		ACF7B44218D6795100B464DB /* SGGIntermediateGraphController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SGGIntermediateGraphController.mm; sourceTree = "<group>"; };
 		C9ECBB8B237640F1B41D5197 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -179,6 +202,8 @@
 		AC47C96618CD277A0000274E /* iPhoneApp */ = {
 			isa = PBXGroup;
 			children = (
+				ACBD12B41932D88200261131 /* DLImageLoader */,
+				ACBD12A91932D68500261131 /* Fonts */,
 				AC3F56A518D56B4F00F266B6 /* VKOauth */,
 				AC3F56A618D56B7D00F266B6 /* Graph */,
 				AC47C96F18CD277A0000274E /* SGGAppDelegate.h */,
@@ -226,6 +251,55 @@
 				AC3F558018D5145900F266B6 /* SGGGraphViewController.m */,
 			);
 			name = GraphViewController;
+			sourceTree = "<group>";
+		};
+		ACBD12A91932D68500261131 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				ACBD12AA1932D69B00261131 /* OpenSans-Bold.ttf */,
+				ACBD12AB1932D69B00261131 /* OpenSans-BoldItalic.ttf */,
+				ACBD12AC1932D69B00261131 /* OpenSans-ExtraBold.ttf */,
+				ACBD12AD1932D69B00261131 /* OpenSans-ExtraBoldItalic.ttf */,
+				ACBD12AE1932D69B00261131 /* OpenSans-Italic.ttf */,
+				ACBD12AF1932D69B00261131 /* OpenSans-Light.ttf */,
+				ACBD12B01932D69B00261131 /* OpenSans-LightItalic.ttf */,
+				ACBD12B11932D69B00261131 /* OpenSans-Regular.ttf */,
+				ACBD12B21932D69B00261131 /* OpenSans-Semibold.ttf */,
+				ACBD12B31932D69B00261131 /* OpenSans-SemiboldItalic.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		ACBD12B41932D88200261131 /* DLImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				ACBD12B51932D88200261131 /* DLIL.h */,
+				ACBD12B61932D88200261131 /* DLILCache */,
+				ACBD12B91932D88200261131 /* DLILOperation */,
+				ACBD12BC1932D88200261131 /* DLImageLoader.h */,
+				ACBD12BD1932D88200261131 /* DLImageLoader.m */,
+				ACBD12BE1932D88200261131 /* DLImageView.h */,
+				ACBD12BF1932D88200261131 /* DLImageView.m */,
+			);
+			path = DLImageLoader;
+			sourceTree = "<group>";
+		};
+		ACBD12B61932D88200261131 /* DLILCache */ = {
+			isa = PBXGroup;
+			children = (
+				ACBD12B71932D88200261131 /* DLILCacheManager.h */,
+				ACBD12B81932D88200261131 /* DLILCacheManager.m */,
+			);
+			path = DLILCache;
+			sourceTree = "<group>";
+		};
+		ACBD12B91932D88200261131 /* DLILOperation */ = {
+			isa = PBXGroup;
+			children = (
+				ACBD12BA1932D88200261131 /* DLILOperation.h */,
+				ACBD12BB1932D88200261131 /* DLILOperation.m */,
+			);
+			path = DLILOperation;
 			sourceTree = "<group>";
 		};
 		ACF7B44418D6797800B464DB /* IntermediateControllerOfMainGraph */ = {
@@ -387,9 +461,13 @@
 				AC3F558118D5145900F266B6 /* SGGGraphViewController.m in Sources */,
 				ACF7B44318D6795100B464DB /* SGGIntermediateGraphController.mm in Sources */,
 				AC3F558418D5164700F266B6 /* SGGAuthorizeViewController.m in Sources */,
+				ACBD12C01932D88200261131 /* DLILCacheManager.m in Sources */,
 				AC44830E18D09CCD0085BAA5 /* SGGGraph.mm in Sources */,
 				AC47C96D18CD277A0000274E /* main.m in Sources */,
 				AC798CA618D65B96001E9752 /* SGGMainGraphController.m in Sources */,
+				ACBD12C21932D88200261131 /* DLImageLoader.m in Sources */,
+				ACBD12C11932D88200261131 /* DLILOperation.m in Sources */,
+				ACBD12C31932D88200261131 /* DLImageView.m in Sources */,
 				ACB19F6D18D00C6000F5AD2A /* SGGNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

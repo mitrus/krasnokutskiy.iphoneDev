@@ -10,17 +10,20 @@
 
 #include <vector>
 #include <cmath>
+#include <map>
 #include <set>
 
 const float MIN_DISTANCE = 80;
-const float ELASTICITY = 5;
+const float ELASTICITY = 0.9;
 const float eps = 5;
-const float FRICTION = (1 - 0.5);
+const float FRICTION = (1 - 0.09);
 const float MAX_SPEED = 8.0;
 const float MIN_SPEED = 0.4;
-const float theta = 0.8;
+const float theta = 0.5;
 const float HALF_SIDE = 6.0;
-const float GRAVITY = 7000;
+const float GRAVITY = 1200;
+const float repeatCount = 1;
+
 struct Body {
     float x, y;
     float m;
@@ -161,7 +164,7 @@ public:
         float dist = sqrt(dx * dx + dy * dy);
         if (dist == 0) return Force(0, 0);
         float side = this->maxx - this->minx;
-        if (side / dist < 0.8 || this->isLeaf) {
+        if (side / dist < theta || this->isLeaf) {
             dx /= dist;
             dy /= dist;
             float a = coeff * t.m * this->main.m / (dist * dist);
@@ -209,6 +212,8 @@ const GLKVector4 edgeColor = {184/256.0, 184/256.0, 184/256.0, 1.0};
     float currentMaxSpeed;
     Tree *quadTree;
     float minDist;
+    std::map<int, int> nodeById;
+    std::map<int, int> idByNode;
 }
 
 @synthesize globalEffect = _globalEffect;
@@ -217,6 +222,32 @@ const GLKVector4 edgeColor = {184/256.0, 184/256.0, 184/256.0, 1.0};
 @synthesize selectedCell = _selectedCell;
 @synthesize stopped = _stopped;
 //@synthesize quadTree = _quadTree;
+
+- (int)getNodeById:(int)_id {
+    return nodeById[_id];
+}
+
+- (int)getIdByNode:(int)_node {
+    return idByNode[_node];
+}
+
+- (void)clearNBI {
+    nodeById.clear();
+    idByNode.clear();
+}
+
+- (void)setValueToNBI:(int)first with:(int) second {
+    nodeById[first] = second;
+    idByNode[second] = first;
+}
+
+- (int)getBy:(int)value {
+    return nodeById[value];
+}
+
+- (int)getNode:(int)value {
+    return idByNode[value];
+}
 
 - (id)initWithGlobalEffect:(GLKBaseEffect *)effect {
     if ((self = [super init])) {
@@ -263,6 +294,7 @@ const GLKVector4 edgeColor = {184/256.0, 184/256.0, 184/256.0, 1.0};
     g[index].clear();
 }
 */
+
 - (int)getId:(CGPoint)point {
     if (point.x == -1)
         return -1;
@@ -345,7 +377,10 @@ const GLKVector4 edgeColor = {184/256.0, 184/256.0, 184/256.0, 1.0};
             GLKVector2 norm = GLKVector2Normalize(vect);
             float d = [self length:vect];
             float x = d - MIN_DISTANCE;
-            a = ELASTICITY * (x / d);
+            if (x >= 0)
+                a = ELASTICITY * (x / d);
+            else
+                a = ELASTICITY * (x) / d;
             //            if (a < 0) x *= 10;
             norm = GLKVector2MultiplyScalar(norm, a);
             //            a /= COUNT;
@@ -393,7 +428,7 @@ const GLKVector4 edgeColor = {184/256.0, 184/256.0, 184/256.0, 1.0};
         //        if (spd > MAX_SPEED) {
         if (!p[i]) {
             quadTree->erase(objectList[i].position.x, objectList[i].position.y);
-            objectList[i].position = GLKVector2Add(objectList[i].position, objectList[i].velocity);
+            objectList[i].position = GLKVector2Add(objectList[i].position, GLKVector2MultiplyScalar(objectList[i].velocity, 1 / repeatCount));
             quadTree->insert(objectList[i].position.x, objectList[i].position.y);
         }
         //      }
